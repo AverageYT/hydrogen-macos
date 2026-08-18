@@ -1,6 +1,12 @@
 #!/bin/bash -eux
 
-_root_dir="$(dirname "$(greadlink -f "$0")")"
+if command -v greadlink >/dev/null 2>&1; then
+  _root_dir="$(dirname "$(greadlink -f "$0")")"
+elif command -v realpath >/dev/null 2>&1; then
+  _root_dir="$(dirname "$(realpath "$0")")"
+else
+  _root_dir="$(python3 -c 'import os,sys; print(os.path.dirname(os.path.realpath(sys.argv[1])))' "$0")"
+fi
 _main_repo="$_root_dir/helium-chromium"
 
 _helium_version=$(python3 "$_main_repo/utils/helium_version.py" --tree "$_main_repo" --platform-tree "$_root_dir" --print)

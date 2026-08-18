@@ -8,7 +8,13 @@
 alias quilt='quilt --quiltrc -'
 
 # Assume this script lives within devutils/
-PLATFORM_ROOT=$(dirname $(dirname $(greadlink -f $0)))
+if command -v greadlink >/dev/null 2>&1; then
+  PLATFORM_ROOT=$(dirname $(dirname $(greadlink -f $0)))
+elif command -v realpath >/dev/null 2>&1; then
+  PLATFORM_ROOT=$(dirname $(dirname $(realpath "$0")))
+else
+  PLATFORM_ROOT=$(python3 -c 'import os,sys; print(os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[1]))))' "$0")
+fi
 
 export QUILT_PATCHES="$PLATFORM_ROOT/patches"
 export QUILT_SERIES="series.merged"
