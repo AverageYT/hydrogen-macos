@@ -16,7 +16,7 @@ _src_dir="$_root_dir/build/src"
 # If build finished successfully
 if [[ -f "$_root_dir/build_finished_$_target_cpu.log" ]] ; then
   # For packaging
-  _helium_version=$(python3 "$_main_repo/utils/helium_version.py" --tree "$_main_repo" --platform-tree "$_root_dir" --print)
+  _helium_version=$(python3 "$_main_repo/utils/hydrogen_version.py" --tree "$_main_repo" --platform-tree "$_root_dir" --print)
 
   _file_name="helium_${_helium_version}_${_target_cpu}-macos.dmg"
   _hash_name="${_file_name}.hashes.md"

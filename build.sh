@@ -52,7 +52,7 @@ python3 "$_main_repo/utils/domain_substitution.py" apply -r "$_main_repo/domain_
 python3 "$_main_repo/utils/name_substitution.py" --sub -t "$_src_dir"
 python3 "$_main_repo/utils/i18n_apply.py" -t "$_src_dir"
 
-python3 "$_main_repo/utils/helium_version.py" \
+python3 "$_main_repo/utils/hydrogen_version.py" \
     --tree "$_main_repo" \
     --platform-tree "$_root_dir" \
     --chromium-tree "$_src_dir"

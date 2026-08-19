@@ -9,7 +9,7 @@ else
 fi
 _main_repo="$_root_dir/helium-chromium"
 
-_helium_version=$(python3 "$_main_repo/utils/helium_version.py" --tree "$_main_repo" --platform-tree "$_root_dir" --print)
+_helium_version=$(python3 "$_main_repo/utils/hydrogen_version.py" --tree "$_main_repo" --platform-tree "$_root_dir" --print)
 
 _base_hash_name="helium_${_helium_version}"
 _x64_hash_name="${_base_hash_name}_x86_64-macos.dmg.hashes.md"

@@ -126,7 +126,7 @@ ___helium_setup_presetup() {
     ___helium_resources
     ___helium_setup_gn
 
-    python3 "$_main_repo/utils/helium_version.py" \
+    python3 "$_main_repo/utils/hydrogen_version.py" \
         --tree "$_main_repo" \
         --platform-tree "$_root_dir" \
         --chromium-tree "$_src_dir"
