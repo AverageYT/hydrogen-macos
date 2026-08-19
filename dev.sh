@@ -213,8 +213,8 @@ ___helium_build() {
 }
 
 ___helium_run() {
-    "$_out_dir/Helium.app/Contents/MacOS/Helium" \
-    --user-data-dir="$HOME/Library/Application Support/net.imput.helium.dev" \
+    "$_out_dir/Hydrogen.app/Contents/MacOS/Hydrogen" \
+    --user-data-dir="$HOME/Library/Application Support/net.imput.hydrogen.dev" \
     --enable-ui-devtools \
     --use-mock-keychain \
     --disable-features=DialMediaRouteProvider
