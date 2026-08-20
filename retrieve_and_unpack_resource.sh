@@ -84,13 +84,20 @@ if $retrieve_toolchain; then
       *) echo "Unsupported macOS architecture: $_target_cpu" >&2; exit 1 ;;
     esac
 
-    _esbuild_path="$_src_dir/third_party/devtools-frontend/src/third_party/esbuild/esbuild"
-    if [ ! -x "$_esbuild_path" ]; then
+    _devtools_dir="$_src_dir/third_party/devtools-frontend/src"
+    _esbuild_path="$_devtools_dir/third_party/esbuild/esbuild"
+    _rollup_package="$_devtools_dir/node_modules/@rollup/rollup-$_esbuild_platform"
+    if [ ! -x "$_esbuild_path" ] || [ ! -f "$_rollup_package/package.json" ]; then
+      _rollup_version=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' \
+        "$_devtools_dir/node_modules/rollup/package.json")
       _esbuild_tmp=$(mktemp -d)
       npm install --prefix "$_esbuild_tmp" --no-save --ignore-scripts --no-package-lock \
-        --no-audit --no-fund "@esbuild/$_esbuild_platform@0.25.1"
+        --no-audit --no-fund \
+        "@esbuild/$_esbuild_platform@0.25.1" "@rollup/rollup-$_esbuild_platform@$_rollup_version"
       mkdir -p "$(dirname "$_esbuild_path")"
       cp "$_esbuild_tmp/node_modules/@esbuild/$_esbuild_platform/bin/esbuild" "$_esbuild_path"
+      mkdir -p "$(dirname "$_rollup_package")"
+      cp -R "$_esbuild_tmp/node_modules/@rollup/rollup-$_esbuild_platform" "$(dirname "$_rollup_package")/"
       rm -rf "$_esbuild_tmp"
     fi
   popd
