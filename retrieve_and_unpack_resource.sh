@@ -77,5 +77,21 @@ if $retrieve_toolchain; then
     NODE="$_src_dir/third_party/node"
     mkdir -p "$NODE/mac_arm64"
     mv "$NODE/mac/node-darwin-arm64" "$NODE/mac_arm64/"
+
+    case "$_target_cpu" in
+      arm64) _esbuild_platform="darwin-arm64" ;;
+      x86_64) _esbuild_platform="darwin-x64" ;;
+      *) echo "Unsupported macOS architecture: $_target_cpu" >&2; exit 1 ;;
+    esac
+
+    _esbuild_path="$_src_dir/third_party/devtools-frontend/src/third_party/esbuild/esbuild"
+    if [ ! -x "$_esbuild_path" ]; then
+      _esbuild_tmp=$(mktemp -d)
+      npm install --prefix "$_esbuild_tmp" --no-save --ignore-scripts --no-package-lock \
+        --no-audit --no-fund "@esbuild/$_esbuild_platform@0.25.1"
+      mkdir -p "$(dirname "$_esbuild_path")"
+      cp "$_esbuild_tmp/node_modules/@esbuild/$_esbuild_platform/bin/esbuild" "$_esbuild_path"
+      rm -rf "$_esbuild_tmp"
+    fi
   popd
 fi
