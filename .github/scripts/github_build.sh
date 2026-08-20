@@ -26,8 +26,12 @@ echo $(date +%s) | tee -a "$_root_dir/build_times_$_target_cpu.log"
 echo "status=running" >> $GITHUB_OUTPUT
 
 if ! env | grep -q SCCACHE; then
-    export SCCACHE_GHA_ENABLED=on
-    export SCCACHE_GHA_VERSION="$_target_cpu"
+    if [[ -n "${ACTIONS_CACHE_URL:-}" && -n "${ACTIONS_RUNTIME_TOKEN:-}" ]]; then
+        export SCCACHE_GHA_ENABLED=on
+        export SCCACHE_GHA_VERSION="$_target_cpu"
+    else
+        echo "GitHub Actions cache is unavailable; using sccache local disk cache" >&2
+    fi
 fi
 
 export SCCACHE_WEBDAV_KEY_PREFIX="$_target_cpu"
