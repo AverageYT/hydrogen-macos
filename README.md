@@ -1,6 +1,6 @@
 # helium-macos
 macOS packaging & development tooling for the
-Hydrogen Browser (forked off [Helium Browser](helium.computer)).
+Hydrogen Browser (forked off [Helium Browser](https://helium.computer/)).
 
 ## Building and development
 macOS is my primary development platform, so it's the recommended environment
