@@ -1,0 +1,13 @@
+Fix HydrogenSpacesController factory call to pass browser_window argument
+
+--- a/chrome/browser/ui/browser_window/internal/browser_window_features.cc
++++ b/chrome/browser/ui/browser_window/internal/browser_window_features.cc
+@@ -596,7 +596,7 @@
+ 
+     hydrogen_spaces_controller_ =
+         GetUserDataFactory().CreateInstance<HydrogenSpacesController>(
+-            *browser, profile->GetPrefs());
++            *browser, browser, profile->GetPrefs());
+ 
+     if (tabs::IsVerticalTabsFeatureEnabled()) {
+       Browser* raw_browser = browser->GetBrowserForMigrationOnly();

@@ -21,3 +21,5 @@ helium/macos/applescript-tab-select-command.patch
 helium/macos/open-shortcuts-settings-action.patch
 
 helium/macos/native-translation-context-option.patch
+
+upstream-fixes/fix-spaces-controller-constructor-args.patch
